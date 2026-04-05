@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { prisma } from '~/server/utils/prisma'
+import { prisma } from '~~/server/utils/prisma'
 import { requireAdmin } from '../../../utils/adminOnly'
 
 const updateSchema = z.object({

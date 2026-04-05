@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { prisma } from '~/server/utils/prisma'
+import { prisma } from '~~/server/utils/prisma'
 
 const registerSchema = z.object({
   email: z.string().email(),
