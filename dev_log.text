@@ -1,0 +1,30 @@
+
+> dev
+> nuxt dev
+
+│
+●  Nuxt 4.4.2 (with Nitro 2.13.3, Vite 7.3.1 and Vue 3.5.32)
+[get-port] Unable to find an available port (tried 3000 on host "localhost"). Using alternative port 3002.
+
+  ➜ Local:    http://localhost:3002/
+  ➜ Network:  use --host to expose
+
+  ➜ DevTools: press Shift + Alt + D in the browser (v3.2.4)
+
+
+ WARN  Duplicated imports "prisma", the one from "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/db.ts" has been ignored and "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/prisma.ts" is used
+
+✔ Vite client built in 65ms
+✔ Vite server built in 112ms
+
+ WARN  Duplicated imports "prisma", the one from "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/db.ts" has been ignored and "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/prisma.ts" is used
+
+
+ WARN  Duplicated imports "prisma", the one from "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/db.ts" has been ignored and "/home/abdelrhman/Desktop/NuxtJS-Project/Figo/server/utils/prisma.ts" is used
+
+
+[nitro]  ERROR  Error: Could not load /home/abdelrhman/Desktop/NuxtJS-Project/Figo/app//server/utils/db (imported by server/api/orders.post.ts): ENOENT: no such file or directory, open '/home/abdelrhman/Desktop/NuxtJS-Project/Figo/app//server/utils/db'
+
+
+undefined
+

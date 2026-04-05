@@ -1,0 +1,11 @@
+export default {
+  earlyAccess: true,
+  schema: './prisma/schema.prisma',
+  // For Prisma 7, we define the datasource here instead of in schema.prisma
+  datasources: {
+    db: {
+      provider: 'sqlite',
+      url: process.env.DATABASE_URL,
+    },
+  },
+}

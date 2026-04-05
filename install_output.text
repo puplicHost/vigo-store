@@ -1,0 +1,43 @@
+
+> postinstall
+> nuxt prepare
+
+│
+◆  Types generated in .nuxt.
+
+removed 72 packages, changed 7 packages, and audited 769 packages in 2m
+
+208 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+[1;91merror[0m: [1mError validating: You defined the enum `Role`. But the current connector does not support enums.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:71[0m
+[1;94m   | [0m
+[1;94m70 | [0m
+[1;94m71 | [0m[1;91menum Role {[0m
+[1;94m72 | [0m  ADMIN
+[1;94m73 | [0m  CUSTOMER
+[1;94m74 | [0m}
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating: You defined the enum `OrderStatus`. But the current connector does not support enums.[0m
+  [1;94m-->[0m  [4mprisma/schema.prisma:76[0m
+[1;94m   | [0m
+[1;94m75 | [0m
+[1;94m76 | [0m[1;91menum OrderStatus {[0m
+[1;94m77 | [0m  PENDING
+[1;94m78 | [0m  PROCESSING
+[1;94m79 | [0m  SHIPPED
+[1;94m80 | [0m  DELIVERED
+[1;94m81 | [0m  CANCELLED
+[1;94m82 | [0m}
+[1;94m   | [0m
+
+Validation Error Count: 2
+[Context: getDmmf]
+
+Prisma CLI Version : 5.22.0
