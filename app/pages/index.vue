@@ -85,8 +85,8 @@
             <article v-for="product in filteredProducts" :key="product.id" class="group relative">
               <NuxtLink :to="`/products/${product.id}`">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-container mb-6 transition-all duration-700 editorial-shadow">
-                  <img 
-                    :src="product.images?.[0] || '/placeholder-product.jpg'" 
+                  <img
+                    :src="useProductImage(product)"
                     :alt="product.name"
                     class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
@@ -97,7 +97,10 @@
                     Limited Run
                   </span>
                   <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <button class="w-full bg-primary-container text-white py-4 rounded-lg font-bold flex items-center justify-center gap-2 editorial-shadow hover:opacity-90">
+                    <button
+                      @click.prevent="addToCart(product)"
+                      class="w-full bg-primary-container text-white py-4 rounded-lg font-bold flex items-center justify-center gap-2 editorial-shadow hover:opacity-90"
+                    >
                       <span class="material-symbols-outlined text-lg">add_shopping_cart</span>
                       Add to Cart
                     </button>
@@ -177,6 +180,13 @@ const filteredProducts = computed(() => {
 
   return result
 })
+
+const cartStore = useCartStore()
+
+function addToCart(product) {
+  cartStore.addItem(product, 1)
+  // Optional: Show toast notification
+}
 
 useHead({
   title: 'The Curated Tactile | Shop All',

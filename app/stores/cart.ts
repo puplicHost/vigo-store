@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
 
 export interface CartItem {
-  id: number
-  name: string
-  price: number
+  product: {
+    id: number
+    name: string
+    price: number
+    images?: string | string[]
+    category?: { name: string }
+  }
   quantity: number
-  image?: string
 }
 
 export const useCartStore = defineStore('cart', {
@@ -15,22 +18,22 @@ export const useCartStore = defineStore('cart', {
   
   getters: {
     totalItems: (state) => state.items.reduce((sum, item) => sum + item.quantity, 0),
-    totalPrice: (state) => state.items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    totalPrice: (state) => state.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
   },
   
   actions: {
-    addItem(product: CartItem) {
-      const existingItem = this.items.find(item => item.id === product.id)
+    addItem(product: any, quantity = 1) {
+      const existingItem = this.items.find(item => item.product.id === product.id)
       if (existingItem) {
-        existingItem.quantity += product.quantity
+        existingItem.quantity += quantity
       } else {
-        this.items.push(product)
+        this.items.push({ product, quantity })
       }
       this.saveToLocalStorage()
     },
     
     removeItem(productId: number) {
-      const index = this.items.findIndex(item => item.id === productId)
+      const index = this.items.findIndex(item => item.product.id === productId)
       if (index > -1) {
         this.items.splice(index, 1)
         this.saveToLocalStorage()
@@ -38,7 +41,7 @@ export const useCartStore = defineStore('cart', {
     },
     
     updateQuantity(productId: number, quantity: number) {
-      const item = this.items.find(item => item.id === productId)
+      const item = this.items.find(item => item.product.id === productId)
       if (item) {
         if (quantity <= 0) {
           this.removeItem(productId)
@@ -55,16 +58,20 @@ export const useCartStore = defineStore('cart', {
     },
     
     loadFromLocalStorage() {
-      if (process.client) {
+      if (import.meta.client) {
         const saved = localStorage.getItem('cart')
         if (saved) {
-          this.items = JSON.parse(saved)
+          try {
+            this.items = JSON.parse(saved)
+          } catch (e) {
+            this.items = []
+          }
         }
       }
     },
     
     saveToLocalStorage() {
-      if (process.client) {
+      if (import.meta.client) {
         localStorage.setItem('cart', JSON.stringify(this.items))
       }
     },

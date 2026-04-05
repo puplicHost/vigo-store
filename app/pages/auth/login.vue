@@ -36,6 +36,12 @@ const error = ref('')
 const user = useState('user')
 
 async function handleLogin() {
+  // Validation
+  if (!form.email || !form.password) {
+    error.value = 'Please enter both email and password'
+    return
+  }
+
   loading.value = true
   error.value = ''
   

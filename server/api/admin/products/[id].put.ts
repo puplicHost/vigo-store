@@ -9,6 +9,7 @@ const updateSchema = z.object({
   price: z.number().positive(),
   stock: z.number().int().min(0),
   categoryId: z.number().int(),
+  images: z.array(z.string()).optional(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -28,7 +29,10 @@ export default defineEventHandler(async (event) => {
 
   const product = await prisma.product.update({
     where: { id },
-    data: result.data,
+    data: {
+      ...result.data,
+      images: result.data.images as any,
+    },
     include: { category: true },
   })
 

@@ -103,6 +103,10 @@
                   <input v-model="form.zipCode" type="text" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
                 </div>
               </div>
+              <div class="space-y-1">
+                <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Phone Number</label>
+                <input v-model="form.phone" type="tel" placeholder="+1 (555) 000-0000" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+              </div>
             </div>
           </section>
 
@@ -147,7 +151,7 @@
             <div class="space-y-6 mb-8">
               <div v-for="item in cartItems" :key="item.product.id" class="flex gap-4">
                 <div class="relative w-20 h-24 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
-                  <img :src="item.product.images?.[0] || '/placeholder-product.jpg'" class="w-full h-full object-cover" />
+                  <img :src="useProductImage(item.product)" class="w-full h-full object-cover" />
                   <span class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">{{ item.quantity }}</span>
                 </div>
                 <div class="flex-grow py-1">
@@ -208,11 +212,12 @@ const form = ref({
   city: '',
   state: '',
   zipCode: '',
+  phone: '',
   newsletter: false
 })
 
 const cartItems = computed(() => cartStore.items)
-const cartTotal = computed(() => cartStore.total)
+const cartTotal = computed(() => cartStore.totalPrice)
 
 const shipping = computed(() => {
   if (cartTotal.value >= 500) return 0
@@ -223,8 +228,24 @@ const tax = computed(() => cartTotal.value * 0.08)
 const total = computed(() => cartTotal.value + shipping.value + tax.value)
 
 async function placeOrder() {
+  // Validation
   if (cartItems.value.length === 0) {
     alert('Your cart is empty')
+    return
+  }
+
+  if (!form.value.firstName || !form.value.lastName) {
+    alert('Please enter your full name')
+    return
+  }
+
+  if (!form.value.address || !form.value.city || !form.value.state || !form.value.zipCode) {
+    alert('Please complete your shipping address')
+    return
+  }
+
+  if (!form.value.phone || form.value.phone.length < 5) {
+    alert('Please enter a valid phone number')
     return
   }
 
@@ -239,7 +260,7 @@ async function placeOrder() {
       })),
       address: `${form.value.address}, ${form.value.city}, ${form.value.state} ${form.value.zipCode}`,
       city: form.value.city,
-      phone: 'N/A'
+      phone: form.value.phone
     }
 
     const response = await $fetch('/api/orders', {

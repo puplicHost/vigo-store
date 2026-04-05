@@ -55,7 +55,7 @@
               <td class="px-6 py-4">
                 <div class="flex items-center gap-4">
                   <div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
-                    <img :src="product.images?.[0] || '/placeholder-product.jpg'" class="w-full h-full object-cover" />
+                    <img :src="useProductImage(product)" class="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p class="font-bold text-primary">{{ product.name }}</p>
@@ -105,7 +105,8 @@
 
 <script setup>
 definePageMeta({
-  layout: 'dashboard'
+  layout: 'dashboard',
+  middleware: ['admin']
 })
 
 const searchQuery = ref('')

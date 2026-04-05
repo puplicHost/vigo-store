@@ -163,7 +163,8 @@
 
 <script setup>
 definePageMeta({
-  layout: 'dashboard'
+  layout: 'dashboard',
+  middleware: ['admin']
 })
 
 const { data: stats } = await useFetch('/api/admin/stats', {

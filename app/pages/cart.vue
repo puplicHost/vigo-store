@@ -45,8 +45,8 @@
 
             <div v-for="item in items" :key="item.product.id" class="flex gap-6 group">
               <div class="w-24 h-32 bg-stone-200 rounded-lg overflow-hidden flex-shrink-0">
-                <img 
-                  :src="item.product.images?.[0] || '/placeholder-product.jpg'" 
+                <img
+                  :src="useProductImage(item.product)"
                   :alt="item.product.name"
                   class="w-full h-full object-cover"
                 />
@@ -124,7 +124,7 @@
 const cartStore = useCartStore()
 
 const items = computed(() => cartStore.items)
-const cartTotal = computed(() => cartStore.total)
+const cartTotal = computed(() => cartStore.totalPrice)
 
 const shipping = computed(() => {
   if (cartTotal.value >= 500) return 0

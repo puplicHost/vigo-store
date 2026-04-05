@@ -39,10 +39,14 @@
 </template>
 
 <script setup>
-const { data: orders, pending, error } = await useFetch('/api/orders/my-orders', {
+const token = ref('')
+
+const { data: orders, pending, error } = useFetch('/api/orders/my-orders', {
   headers: {
-    Authorization: `Bearer ${process.client ? localStorage.getItem('token') : ''}`,
+    Authorization: computed(() => `Bearer ${token.value}`),
   },
+  watch: [token],
+  immediate: false
 })
 
 function formatDate(date) {
@@ -54,7 +58,8 @@ function formatDate(date) {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) {
+  token.value = localStorage.getItem('token') || ''
+  if (!token.value) {
     navigateTo('/auth/login')
   }
 })

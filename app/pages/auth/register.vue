@@ -41,6 +41,17 @@ const error = ref('')
 const user = useState('user')
 
 async function handleRegister() {
+  // Validation
+  if (!form.name || !form.email || !form.password) {
+    error.value = 'Please fill in all fields'
+    return
+  }
+
+  if (form.password.length < 6) {
+    error.value = 'Password must be at least 6 characters'
+    return
+  }
+
   loading.value = true
   error.value = ''
   

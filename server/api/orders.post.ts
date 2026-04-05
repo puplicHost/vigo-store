@@ -15,41 +15,51 @@ const createOrderSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const user = event.context.user
-  if (!user) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
-  }
+  try {
+    const user = event.context.user
+    if (!user) {
+      throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+    }
 
-  const body = await readBody(event)
+    const body = await readBody(event)
   
-  const result = createOrderSchema.safeParse(body)
-  if (!result.success) {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid input data' })
-  }
+    const result = createOrderSchema.safeParse(body)
+    if (!result.success) {
+      throw createError({ statusCode: 400, statusMessage: 'Invalid input data' })
+    }
 
-  const { items, address, city, phone } = result.data
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    const { items, address, city, phone } = result.data
+    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  const order = await prisma.order.create({
-    data: {
-      userId: user.userId,
-      total,
-      address,
-      city,
-      phone,
-      status: 'PENDING',
-      items: {
-        create: items.map(item => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          price: item.price,
-        })),
+    const order = await prisma.order.create({
+      data: {
+        userId: user.userId,
+        total,
+        address,
+        city,
+        phone,
+        status: 'PENDING',
+        items: {
+          create: items.map(item => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
       },
-    },
-    include: {
-      items: { include: { product: true } },
-    },
-  })
+      include: {
+        items: { include: { product: true } },
+      },
+    })
 
-  return order
+    return order
+  } catch (error) {
+    if (error instanceof Error && 'statusCode' in error) {
+      throw error
+    }
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to create order'
+    })
+  }
 })

@@ -29,20 +29,12 @@ const props = defineProps({
 
 const cartStore = useCartStore()
 
-const imageUrl = computed(() => {
-  return props.product.images || '/placeholder-product.jpg'
-})
+const imageUrl = computed(() => useProductImage(props.product))
 
 function addToCart() {
   if (props.product.stock === 0) return
   
-  cartStore.addItem({
-    id: props.product.id,
-    name: props.product.name,
-    price: props.product.price,
-    quantity: 1,
-    image: props.product.images,
-  })
+  cartStore.addItem(props.product, 1)
 }
 </script>
 

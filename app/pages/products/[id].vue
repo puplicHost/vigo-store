@@ -170,8 +170,8 @@
             class="group space-y-4"
           >
             <div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high relative">
-              <img 
-                :src="item.images?.[0] || '/placeholder-product.jpg'" 
+              <img
+                :src="useProductImage(item)"
                 :alt="item.name"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
@@ -204,12 +204,7 @@ const { data: productData, pending, error } = await useFetch(`/api/products/${pr
 const product = computed(() => productData.value)
 
 // Product images
-const productImages = computed(() => {
-  if (!product.value?.images) return ['/placeholder-product.jpg']
-  return Array.isArray(product.value.images) 
-    ? product.value.images 
-    : [product.value.images]
-})
+const productImages = computed(() => useProductImages(product.value))
 
 // Fetch related products
 const { data: allProducts } = await useFetch('/api/products?limit=8')

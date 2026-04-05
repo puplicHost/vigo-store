@@ -92,7 +92,8 @@
 
 <script setup>
 definePageMeta({
-  layout: 'dashboard'
+  layout: 'dashboard',
+  middleware: ['admin']
 })
 
 const statusFilter = ref('')
