@@ -1,190 +1,240 @@
 <template>
-  <div>
-    <NuxtLayout name="dashboard">
-      <div class="container">
-        <h1>Edit Product</h1>
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-8">
+      <NuxtLink to="/dashboard/products" class="p-2 text-stone-400 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </NuxtLink>
+      <div>
+        <h2 class="text-3xl font-headline font-extrabold text-primary tracking-tight">Edit Product</h2>
+        <p class="text-stone-500 mt-1">Update product details</p>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div v-if="pending" class="bg-surface-container-lowest rounded-xl p-8 space-y-6 animate-pulse">
+      <div class="h-8 bg-surface-container rounded w-1/4"></div>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="h-12 bg-surface-container rounded"></div>
+        <div class="h-12 bg-surface-container rounded"></div>
+      </div>
+      <div class="h-32 bg-surface-container rounded"></div>
+    </div>
+
+    <!-- Form -->
+    <form v-else @submit.prevent="updateProduct" class="bg-surface-container-lowest rounded-xl p-8 editorial-shadow-sm space-y-8">
+      <!-- Basic Info -->
+      <section class="space-y-6">
+        <h3 class="text-lg font-headline font-bold text-primary">Basic Information</h3>
         
-        <div v-if="pending" class="loading">Loading...</div>
-        <form v-else @submit.prevent="handleSubmit" class="product-form">
-          <div class="form-group">
-            <label for="name">Product Name</label>
-            <input id="name" v-model="form.name" type="text" required />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Product Name</label>
+            <input 
+              v-model="form.name"
+              type="text"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            />
           </div>
           
-          <div class="form-group">
-            <label for="slug">Slug</label>
-            <input id="slug" v-model="form.slug" type="text" required />
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Slug</label>
+            <input 
+              v-model="form.slug"
+              type="text"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-on-surface-variant">Description</label>
+          <textarea 
+            v-model="form.description"
+            rows="4"
+            class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary resize-none"
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Price ($)</label>
+            <input 
+              v-model.number="form.price"
+              type="number"
+              required
+              min="0"
+              step="0.01"
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            />
           </div>
           
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" v-model="form.description" rows="4"></textarea>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Stock</label>
+            <input 
+              v-model.number="form.stock"
+              type="number"
+              required
+              min="0"
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            />
           </div>
           
-          <div class="form-row">
-            <div class="form-group">
-              <label for="price">Price ($)</label>
-              <input id="price" v-model.number="form.price" type="number" step="0.01" min="0" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="stock">Stock</label>
-              <input id="stock" v-model.number="form.stock" type="number" min="0" required />
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" v-model.number="form.categoryId" required>
-              <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                {{ cat.name }}
-              </option>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Category</label>
+            <select 
+              v-model="form.categoryId"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            >
+              <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
             </select>
           </div>
-          
-          <div class="form-actions">
-            <button type="button" @click="navigateTo('/dashboard/products')" class="btn-cancel">Cancel</button>
-            <button type="submit" :disabled="loading" class="btn-submit">
-              {{ loading ? 'Saving...' : 'Save Changes' }}
-            </button>
-          </div>
-          <p v-if="error" class="error">{{ error }}</p>
-        </form>
+        </div>
+      </section>
+
+      <!-- Images -->
+      <section class="space-y-6">
+        <h3 class="text-lg font-headline font-bold text-primary">Images</h3>
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-on-surface-variant">Image URL</label>
+          <input 
+            v-model="form.images"
+            type="text"
+            class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+          />
+        </div>
+        <div v-if="form.images" class="w-32 h-32 rounded-lg overflow-hidden bg-surface-container-high">
+          <img :src="form.images" class="w-full h-full object-cover" />
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between pt-6 border-t border-stone-100">
+        <button 
+          type="button"
+          @click="deleteProduct"
+          :disabled="deleting"
+          class="px-6 py-3 text-error font-semibold hover:bg-error/5 rounded-lg transition-colors flex items-center gap-2"
+        >
+          <span class="material-symbols-outlined">delete</span>
+          {{ deleting ? 'Deleting...' : 'Delete' }}
+        </button>
+        
+        <div class="flex items-center gap-4">
+          <NuxtLink 
+            to="/dashboard/products"
+            class="px-6 py-3 text-primary font-semibold hover:bg-primary/5 rounded-lg transition-colors"
+          >
+            Cancel
+          </NuxtLink>
+          <button 
+            type="submit"
+            :disabled="saving"
+            class="px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-all disabled:opacity-50 flex items-center gap-2"
+          >
+            <span v-if="saving" class="material-symbols-outlined animate-spin">refresh</span>
+            <span>{{ saving ? 'Saving...' : 'Update Product' }}</span>
+          </button>
+        </div>
       </div>
-    </NuxtLayout>
+    </form>
   </div>
 </template>
 
 <script setup>
+definePageMeta({
+  layout: 'dashboard'
+})
+
 const route = useRoute()
+const router = useRouter()
 const productId = route.params.id
 
-const form = reactive({
+const form = ref({
   name: '',
   slug: '',
   description: '',
   price: 0,
   stock: 0,
-  categoryId: '',
+  categoryId: null,
+  images: ''
 })
 
-const loading = ref(false)
-const error = ref('')
+const saving = ref(false)
+const deleting = ref(false)
 
 const { data: categories } = await useFetch('/api/categories')
-const { data: product, pending } = await useFetch(`/api/products/${productId}`)
 
-watchEffect(() => {
-  if (product.value) {
-    form.name = product.value.name
-    form.slug = product.value.slug
-    form.description = product.value.description || ''
-    form.price = product.value.price
-    form.stock = product.value.stock
-    form.categoryId = product.value.categoryId
+const { data: product, pending } = await useFetch(`/api/products/${productId}`, {
+  headers: {
+    Authorization: `Bearer ${process.client ? localStorage.getItem('token') : ''}`
   }
 })
 
-async function handleSubmit() {
-  loading.value = true
-  error.value = ''
+// Populate form when data loads
+watch(product, (newProduct) => {
+  if (newProduct) {
+    form.value = {
+      name: newProduct.name,
+      slug: newProduct.slug,
+      description: newProduct.description || '',
+      price: newProduct.price,
+      stock: newProduct.stock,
+      categoryId: newProduct.categoryId,
+      images: Array.isArray(newProduct.images) ? newProduct.images[0] : newProduct.images || ''
+    }
+  }
+}, { immediate: true })
+
+async function updateProduct() {
+  saving.value = true
+  
+  try {
+    const payload = {
+      ...form.value,
+      images: form.value.images ? [form.value.images] : []
+    }
+    
+    await $fetch(`/api/admin/products/${productId}`, {
+      method: 'PUT',
+      body: payload,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    
+    router.push('/dashboard/products')
+  } catch (err) {
+    alert('Failed to update product')
+  } finally {
+    saving.value = false
+  }
+}
+
+async function deleteProduct() {
+  if (!confirm('Are you sure you want to delete this product?')) return
+  
+  deleting.value = true
   
   try {
     await $fetch(`/api/admin/products/${productId}`, {
-      method: 'PUT',
-      body: form,
+      method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
-    navigateTo('/dashboard/products')
+    
+    router.push('/dashboard/products')
   } catch (err) {
-    error.value = err?.data?.statusMessage || 'Failed to update product'
-  } finally {
-    loading.value = false
+    alert('Failed to delete product')
+    deleting.value = false
   }
 }
 
 useHead({
-  title: 'Edit Product - Figo Admin',
-})
-
-definePageMeta({
-  layout: 'dashboard',
+  title: 'Edit Product | Admin Panel'
 })
 </script>
-
-<style scoped>
-.product-form {
-  max-width: 600px;
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.btn-cancel {
-  padding: 0.75rem 1.5rem;
-  background: #e5e7eb;
-  color: #374151;
-  border-radius: 0.375rem;
-  font-weight: 600;
-}
-
-.btn-submit {
-  padding: 0.75rem 1.5rem;
-  background: #2563eb;
-  color: white;
-  border-radius: 0.375rem;
-  font-weight: 600;
-}
-
-.btn-submit:disabled {
-  background: #9ca3af;
-}
-
-.loading,
-.error {
-  text-align: center;
-  padding: 3rem;
-}
-
-.error {
-  color: #ef4444;
-}
-</style>

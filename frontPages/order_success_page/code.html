@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Confirmed | The Curated Tactile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e2dc",
+                        "on-surface-variant": "#3f4944",
+                        "on-surface": "#1b1c18",
+                        "primary": "#005440",
+                        "secondary-container": "#fcaa33",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#1b1c18",
+                        "surface-dim": "#dcdad3",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-tertiary-container": "#ffd3c6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "secondary-fixed-dim": "#ffb95d",
+                        "surface-bright": "#fbf9f2",
+                        "on-primary-container": "#9aedcf",
+                        "background": "#fbf9f2",
+                        "secondary-fixed": "#ffddb7",
+                        "surface-tint": "#086b53",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f3f1ea",
+                        "tertiary-fixed-dim": "#ffb59e",
+                        "primary-fixed": "#a0f3d4",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f2",
+                        "surface-container": "#f0eee7",
+                        "surface-container-low": "#f6f4ec",
+                        "on-tertiary-fixed": "#3a0b00",
+                        "on-tertiary-fixed-variant": "#852400",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bec9c3",
+                        "inverse-primary": "#84d6b9",
+                        "inverse-surface": "#30312c",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "tertiary": "#892600",
+                        "primary-fixed-dim": "#84d6b9",
+                        "on-secondary-container": "#6b4200",
+                        "primary-container": "#0f6e56",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00513e",
+                        "secondary": "#855400",
+                        "on-primary-fixed": "#002117",
+                        "on-secondary": "#ffffff",
+                        "outline": "#6f7a74",
+                        "tertiary-container": "#ac3b12",
+                        "surface-container-high": "#eae8e1",
+                        "surface-variant": "#e4e2dc",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f2; /* Shared component background base */
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f2]/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
+<div class="text-xl font-bold tracking-tighter text-[#005440] dark:text-[#0f6e56]">
+                The Curated Tactile
+            </div>
+<div class="hidden md:flex items-center space-x-12">
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#005440] transition-all duration-300 hover:opacity-80" href="#">Shop</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#005440] transition-all duration-300 hover:opacity-80" href="#">Editorial</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#005440] transition-all duration-300 hover:opacity-80" href="#">About</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-stone-600 hover:text-[#005440] transition-all duration-300">shopping_bag</button>
+<button class="text-[#005440] dark:text-[#0f6e56] font-semibold hover:opacity-80 transition-all duration-300">Sign In</button>
+</div>
+</div>
+</nav>
+<!-- Success Canvas -->
+<main class="min-h-screen flex flex-col items-center justify-center pt-20 px-6">
+<div class="max-w-2xl w-full text-center space-y-12 py-16">
+<!-- Animated Visual Anchor -->
+<div class="relative flex justify-center">
+<!-- Decorative Ring -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-48 h-48 rounded-full border border-primary/10 animate-pulse"></div>
+</div>
+<!-- Checkmark Icon -->
+<div class="relative bg-surface-container-lowest p-8 rounded-full shadow-lg shadow-primary/5">
+<svg class="w-20 h-20 text-primary-container" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</div>
+</div>
+<!-- Content Hierarchy -->
+<div class="space-y-6">
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter text-primary leading-tight">
+                    Order Confirmed
+                </h1>
+<div class="flex flex-col items-center gap-2">
+<p class="text-stone-400 font-label tracking-widest text-xs uppercase">Order Reference</p>
+<span class="font-headline text-xl font-medium text-on-surface">#CT-9902341-X</span>
+</div>
+<p class="text-on-surface-variant text-lg max-w-md mx-auto leading-relaxed">
+                    Your order is being prepared with the utmost care in our workshop. A confirmation email with tracking details has been dispatched to your inbox.
+                </p>
+</div>
+<!-- Primary Action -->
+<div class="pt-4">
+<button class="group relative inline-flex items-center justify-center px-10 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-semibold rounded-lg shadow-xl shadow-primary/10 transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<span>Continue Shopping</span>
+<span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Order Summary Preview Card (Bento Style) -->
+<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between">
+<div>
+<h3 class="font-headline text-2xl font-bold text-primary mb-6">Delivery Details</h3>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 mb-1">Shipping To</p>
+<p class="font-medium text-on-surface">Alexander Sterling<br/>1248 Oakwood Avenue<br/>London, SW1A 1AA</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 mb-1">Method</p>
+<p class="font-medium text-on-surface">Express Courier (Carbon Neutral)</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/15 flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">eco</span>
+<p class="text-sm text-on-surface-variant italic">This shipment is 100% plastic-free and carbon offset.</p>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-8 flex flex-col justify-center items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-on-primary-container text-3xl">card_membership</span>
+</div>
+<h4 class="font-headline text-xl font-bold">The Tactile Circle</h4>
+<p class="text-sm text-primary-fixed/80">You've earned 450 points from this purchase. Level up to Gold status.</p>
+<button class="text-xs font-bold uppercase tracking-widest hover:underline pt-2">View Rewards</button>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-12 px-8 bg-stone-100 dark:bg-stone-950 font-['Plus_Jakarta_Sans'] text-sm">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-bold text-[#005440]">The Curated Tactile</div>
+<p class="text-stone-500 max-w-xs">Elevating the everyday through intentional design and sustainable craftsmanship.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Terms of Service</a>
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Shipping</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Contact Us</a>
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Sustainability</a>
+<a class="text-stone-500 hover:text-[#0f6e56] transition-colors" href="#">Store Locator</a>
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-between">
+<div class="flex gap-6 mb-4">
+<span class="material-symbols-outlined text-[#005440] cursor-pointer">public</span>
+<span class="material-symbols-outlined text-[#005440] cursor-pointer">potted_plant</span>
+<span class="material-symbols-outlined text-[#005440] cursor-pointer">temp_preferences_custom</span>
+</div>
+<div class="text-stone-500">© 2024 The Curated Tactile. All rights reserved.</div>
+</div>
+</div>
+</footer>
+</body></html>

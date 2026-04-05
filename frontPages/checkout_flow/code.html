@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-highest": "#e4e2dc",
+                "on-surface-variant": "#3f4944",
+                "on-surface": "#1b1c18",
+                "primary": "#005440",
+                "secondary-container": "#fcaa33",
+                "surface-container-lowest": "#ffffff",
+                "on-background": "#1b1c18",
+                "surface-dim": "#dcdad3",
+                "on-secondary-fixed": "#2a1700",
+                "on-tertiary-container": "#ffd3c6",
+                "tertiary-fixed": "#ffdbd0",
+                "secondary-fixed-dim": "#ffb95d",
+                "surface-bright": "#fbf9f2",
+                "on-primary-container": "#9aedcf",
+                "background": "#fbf9f2",
+                "secondary-fixed": "#ffddb7",
+                "surface-tint": "#086b53",
+                "error-container": "#ffdad6",
+                "inverse-on-surface": "#f3f1ea",
+                "tertiary-fixed-dim": "#ffb59e",
+                "primary-fixed": "#a0f3d4",
+                "on-error": "#ffffff",
+                "surface": "#fbf9f2",
+                "surface-container": "#f0eee7",
+                "surface-container-low": "#f6f4ec",
+                "on-tertiary-fixed": "#3a0b00",
+                "on-tertiary-fixed-variant": "#852400",
+                "on-tertiary": "#ffffff",
+                "on-error-container": "#93000a",
+                "outline-variant": "#bec9c3",
+                "inverse-primary": "#84d6b9",
+                "inverse-surface": "#30312c",
+                "on-secondary-fixed-variant": "#653e00",
+                "tertiary": "#892600",
+                "primary-fixed-dim": "#84d6b9",
+                "on-secondary-container": "#6b4200",
+                "primary-container": "#0f6e56",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#00513e",
+                "secondary": "#855400",
+                "on-primary-fixed": "#002117",
+                "on-secondary": "#ffffff",
+                "outline": "#6f7a74",
+                "tertiary-container": "#ac3b12",
+                "surface-container-high": "#eae8e1",
+                "surface-variant": "#e4e2dc",
+                "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Plus Jakarta Sans"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f2; /* Matches the brand background */
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f2]/80 glass-nav shadow-sm">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
+<div class="text-xl font-bold tracking-tighter text-[#005440]">The Curated Tactile</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-stone-600 hover:text-[#005440] transition-all duration-300" href="#">Shop</a>
+<a class="text-stone-600 hover:text-[#005440] transition-all duration-300" href="#">Editorial</a>
+<a class="text-stone-600 hover:text-[#005440] transition-all duration-300" href="#">About</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#005440]">shopping_bag</span>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-medium transition-all duration-300 active:scale-95">Sign In</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Progress Bar Section -->
+<div class="mb-16">
+<div class="flex items-center justify-between max-w-2xl mx-auto relative">
+<!-- Progress Line Background -->
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container-highest -translate-y-1/2 z-0"></div>
+<!-- Active Progress Line -->
+<div class="absolute top-1/2 left-0 w-1/2 h-0.5 bg-primary -translate-y-1/2 z-0"></div>
+<!-- Steps -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-primary">Cart</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold ring-4 ring-primary-fixed">
+                        2
+                    </div>
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-primary">Info</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-outline border border-outline-variant flex items-center justify-center font-bold">
+                        3
+                    </div>
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-outline">Payment</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-outline border border-outline-variant flex items-center justify-center font-bold">
+                        4
+                    </div>
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-outline">Confirm</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Left Column: Checkout Forms -->
+<div class="lg:col-span-7 space-y-12">
+<!-- Contact Section -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-headline font-bold text-primary">Contact Information</h2>
+<span class="text-sm text-stone-500">Already have an account? <a class="text-primary font-medium underline" href="#">Log in</a></span>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl space-y-4">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Email Address</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container transition-all" placeholder="alexander@tactile.com" type="email"/>
+</div>
+<div class="flex items-center gap-3">
+<input class="rounded text-primary focus:ring-primary border-outline-variant" id="marketing" type="checkbox"/>
+<label class="text-sm text-on-surface-variant" for="marketing">Keep me updated on new arrivals and editorial stories.</label>
+</div>
+</div>
+</section>
+<!-- Shipping Address Section -->
+<section>
+<h2 class="text-2xl font-headline font-bold text-primary mb-6">Shipping Address</h2>
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">First Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Last Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" type="text"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Address</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" placeholder="House number and street name" type="text"/>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">City</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">State</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container">
+<option>New York</option>
+<option>California</option>
+<option>London</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Zip Code</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Method (Placeholder) -->
+<section>
+<h2 class="text-2xl font-headline font-bold text-primary mb-6">Payment Method</h2>
+<div class="bg-surface-container-low p-8 rounded-xl border-2 border-primary-fixed-dim">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+<span class="font-medium">Credit or Debit Card</span>
+</div>
+<div class="flex gap-2">
+<div class="w-8 h-5 bg-stone-300 rounded-sm"></div>
+<div class="w-8 h-5 bg-stone-400 rounded-sm"></div>
+<div class="w-8 h-5 bg-stone-200 rounded-sm"></div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Card Number</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant">lock</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Expiry Date</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" placeholder="MM/YY" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">CVC</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" placeholder="123" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="flex items-center justify-between pt-8">
+<a class="flex items-center gap-2 text-primary font-medium group" href="#">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
+                        Return to Cart
+                    </a>
+<button class="bg-primary text-on-primary px-12 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl hover:opacity-90 transition-all active:scale-95">
+                        Complete Purchase
+                    </button>
+</div>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-5">
+<div class="bg-surface-container rounded-2xl p-8 sticky top-32 shadow-sm border border-outline-variant/10">
+<h3 class="text-xl font-headline font-bold text-primary mb-8">Order Summary</h3>
+<!-- Item List -->
+<div class="space-y-6 mb-8">
+<div class="flex gap-4">
+<div class="relative w-20 h-24 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Sculptural Ceramic Vase" class="w-full h-full object-cover" data-alt="close-up of a minimalist white sculptural ceramic vase with organic curves and matte texture against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzpPiSqUInmakqIf-YqLiNOZE4VhoVe0XtB9EUcXCFK9GQXmUthApOQgOxt0LwMNTJ9L_4RcQ9QB7m3Zd8Rf32avmD08pqmET3a0HiMdvbnb29fZUCFTKPjZyZQuyRwhNu-iOsovuKx4jyyRYuU5_X1IUf5rrGNoE0wvMdecwxQh8lPMRsCE1x77MRQVGfiFpvC4EI9sQNN8wgX1lKgCDL__EIyIZksFlebOw8sFiB8_-tzbdQR4PkjiFORFiGNCpsTOImk-A1HZ27"/>
+<span class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">1</span>
+</div>
+<div class="flex-grow py-1">
+<p class="font-bold text-on-surface">Earthen Vessel No. 4</p>
+<p class="text-sm text-on-surface-variant">Natural Sand / Medium</p>
+<p class="text-sm font-bold text-primary mt-1">$145.00</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="relative w-20 h-24 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Hand-woven Wool Throw" class="w-full h-full object-cover" data-alt="detail of a heavy hand-woven wool throw blanket with cream and charcoal grey geometric patterns on a wooden chair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqhH6bvvY2rFMXMBkvLDN9jR0KibLedNV6GmHAeP_gL8l-JNm5SiDdzSfjobSRIA38ouNyPK4EyuZ2Xv-5enDBVHz32nYHEsGQYAZxlz9skqA55pla5geC-KctSV8BKKd3lEOP5nxANZaRZjz8BXLl85tWO6hWJGLX2Z84UhioFyqOQ5NeOgKDp5d58Y2nO8-PiUftmJTOIo1u1wBFghFJxY2EBfG820aDvGk_KoNAnxee7WjJvd0q8nkFmftxvyRWLUZK4LZWnQI_"/>
+<span class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">1</span>
+</div>
+<div class="flex-grow py-1">
+<p class="font-bold text-on-surface">Tactile Merino Throw</p>
+<p class="text-sm text-on-surface-variant">Charcoal Grid</p>
+<p class="text-sm font-bold text-primary mt-1">$280.00</p>
+</div>
+</div>
+</div>
+<!-- Promo Code -->
+<div class="flex gap-2 mb-10">
+<input class="flex-grow bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Promo code" type="text"/>
+<button class="bg-surface-container-highest text-primary px-6 py-3 rounded-lg text-sm font-bold hover:bg-outline-variant/20 transition-colors">Apply</button>
+</div>
+<!-- Financial Breakdown -->
+<div class="space-y-4 pt-8 border-t border-outline-variant/20">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-medium text-on-surface">$425.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Shipping</span>
+<span class="font-medium text-on-surface">$15.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Taxes</span>
+<span class="font-medium text-on-surface">$34.00</span>
+</div>
+<div class="flex justify-between items-end pt-4">
+<div>
+<p class="text-xl font-headline font-extrabold text-primary">Total</p>
+<p class="text-[10px] text-stone-400 uppercase tracking-widest">USD (Includes duties)</p>
+</div>
+<span class="text-3xl font-headline font-extrabold text-primary">$474.00</span>
+</div>
+</div>
+<!-- Secure Checkout Badge -->
+<div class="mt-10 flex items-center justify-center gap-2 py-4 bg-surface-container-low rounded-xl text-stone-500">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-xs font-bold uppercase tracking-widest">100% Secure Checkout</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component Strategy) -->
+<footer class="bg-stone-100 py-12 px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto font-['Plus_Jakarta_Sans'] text-sm">
+<div class="space-y-4">
+<div class="text-lg font-bold text-[#005440]">The Curated Tactile</div>
+<p class="text-stone-500 leading-relaxed max-w-xs">Curating essential pieces for the modern home, where tactile quality meets timeless design.</p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-3">
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Privacy Policy</a>
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Terms of Service</a>
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Shipping</a>
+</div>
+<div class="space-y-3">
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Contact Us</a>
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Sustainability</a>
+<a class="block text-stone-500 hover:text-[#0f6e56]" href="#">Store Locator</a>
+</div>
+</div>
+<div class="flex flex-col items-start md:items-end justify-between">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-stone-400 hover:text-primary cursor-pointer">share</span>
+<span class="material-symbols-outlined text-stone-400 hover:text-primary cursor-pointer">mail</span>
+</div>
+<p class="text-stone-400 mt-8 md:mt-0">© 2024 The Curated Tactile. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

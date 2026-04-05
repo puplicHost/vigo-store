@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e4e2dc",
+                    "on-surface-variant": "#3f4944",
+                    "on-surface": "#1b1c18",
+                    "primary": "#005440",
+                    "secondary-container": "#fcaa33",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#1b1c18",
+                    "surface-dim": "#dcdad3",
+                    "on-secondary-fixed": "#2a1700",
+                    "on-tertiary-container": "#ffd3c6",
+                    "tertiary-fixed": "#ffdbd0",
+                    "secondary-fixed-dim": "#ffb95d",
+                    "surface-bright": "#fbf9f2",
+                    "on-primary-container": "#9aedcf",
+                    "background": "#fbf9f2",
+                    "secondary-fixed": "#ffddb7",
+                    "surface-tint": "#086b53",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f3f1ea",
+                    "tertiary-fixed-dim": "#ffb59e",
+                    "primary-fixed": "#a0f3d4",
+                    "on-error": "#ffffff",
+                    "surface": "#fbf9f2",
+                    "surface-container": "#f0eee7",
+                    "surface-container-low": "#f6f4ec",
+                    "on-tertiary-fixed": "#3a0b00",
+                    "on-tertiary-fixed-variant": "#852400",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#bec9c3",
+                    "inverse-primary": "#84d6b9",
+                    "inverse-surface": "#30312c",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "tertiary": "#892600",
+                    "primary-fixed-dim": "#84d6b9",
+                    "on-secondary-container": "#6b4200",
+                    "primary-container": "#0f6e56",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#00513e",
+                    "secondary": "#855400",
+                    "on-primary-fixed": "#002117",
+                    "on-secondary": "#ffffff",
+                    "outline": "#6f7a74",
+                    "tertiary-container": "#ac3b12",
+                    "surface-container-high": "#eae8e1",
+                    "surface-variant": "#e4e2dc",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden">
+<!-- Sidebar Navigation Shell (Admin Context) -->
+<aside class="fixed left-0 top-0 h-screen w-[240px] bg-[#f6f4ec] dark:bg-stone-900 border-r border-stone-200/50 dark:border-stone-800/50 flex flex-col p-4 gap-2 font-['Plus_Jakarta_Sans'] font-medium z-10">
+<div class="mb-8 px-2">
+<h1 class="text-lg font-black text-[#005440]">Admin Panel</h1>
+<p class="text-xs text-stone-500">Manage Store</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span>Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-[#005440] text-white rounded-lg shadow-md" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<button class="mt-4 flex items-center justify-center gap-2 bg-[#005440] text-white py-3 rounded-lg font-bold text-sm shadow-sm transition-all hover:opacity-90">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Product
+        </button>
+<div class="mt-auto border-t border-stone-200 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-stone-600 hover:bg-stone-200/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas (User Management Page - Background Layer) -->
+<main class="ml-[240px] p-8 max-w-7xl mx-auto">
+<header class="flex justify-between items-end mb-12">
+<div>
+<span class="text-xs font-bold tracking-[0.2em] text-primary uppercase mb-2 block">Management</span>
+<h2 class="text-4xl font-extrabold tracking-tight">Customers</h2>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-stone-400">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64" placeholder="Search customers..." type="text"/>
+</div>
+</div>
+</header>
+<!-- Mock Table for Context -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="grid grid-cols-5 gap-4 p-6 border-b border-outline-variant/10 font-bold text-sm text-stone-500">
+<span>Customer</span>
+<span>Role</span>
+<span>Email</span>
+<span>Join Date</span>
+<span>Status</span>
+</div>
+<div class="divide-y divide-outline-variant/10">
+<!-- User Row Active -->
+<div class="grid grid-cols-5 gap-4 p-6 bg-surface-container-high/50 items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a man with short hair and a warm smile against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCirYC4YkhcbeGHVwTwdSBHdGXTPr7gzKzXdOF-2Yj_YoWAQAm7OkE2904bvJlzImCRAQYvPlWeoQo81SVgk_VPxCjHzQmuj8McZ4uETrj_zbosBRO400HZldTt1R-AULDFBym068slobthRIIzmf4osg6t_PwqXLHnfxVsK8e16CX5WBhFGC64K7Euq6baPBvlEvWqzumr3HX-dOsGH5UmcT16ynuF7BZlhrFEMxx31sK_50-uhQHOglpdHMNfTr4O7ISmPaDXEe2f"/>
+</div>
+<span class="font-bold">Julian Vane</span>
+</div>
+<span class="text-sm">Admin</span>
+<span class="text-sm">j.vane@curatedtactile.com</span>
+<span class="text-sm">Oct 12, 2023</span>
+<span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full w-fit">Active</span>
+</div>
+<!-- Other Rows -->
+<div class="grid grid-cols-5 gap-4 p-6 items-center opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim"></div>
+<span class="font-bold">Elena Rossi</span>
+</div>
+<span class="text-sm">Customer</span>
+<span class="text-sm">elena.r@gmail.com</span>
+<span class="text-sm">Nov 04, 2023</span>
+<span class="text-xs px-2 py-1 bg-stone-200 text-stone-600 rounded-full w-fit">Inactive</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Slide-in Sidebar Overlay -->
+<div class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex justify-end">
+<!-- Close trigger area -->
+<div class="flex-1 cursor-pointer"></div>
+<!-- Sidebar Detail View -->
+<div class="w-full max-w-md bg-background h-full shadow-2xl flex flex-col border-l border-outline-variant/20">
+<!-- Header -->
+<div class="p-6 flex items-center justify-between">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-stone-500">close</span>
+</button>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold tracking-widest text-primary bg-primary-fixed px-2 py-1 rounded">USER PROFILE</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-8 pb-12">
+<!-- Profile Identity Section -->
+<div class="flex flex-col items-center text-center mb-10">
+<div class="w-32 h-32 rounded-3xl bg-surface-container-highest p-1 mb-6 transform rotate-3 overflow-hidden shadow-lg">
+<div class="w-full h-full rounded-[1.25rem] overflow-hidden -rotate-3 bg-white">
+<img class="w-full h-full object-cover" data-alt="close-up studio portrait of a confident man with stylish stubble and dark hair against a minimalist beige background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk16NV2Q_-azbSuCBMkeImc_XJaqV14YFcOvZDoUNTUjXGTX2cluotUJhltCZ7JwlQCf8kkbsHGOa-24vw6RgGuci2UxeK1euXN2tCm4zUOGeaT9-CkinvF2UWW2MmlB_EI9U-sDHOU4W4sIo0botO34OEW_Qg-ng9Z14qGzRmKtSdipd9FwZo3sF6kSd8uCBUR1kzYfTaBTl0ZXni5VmV-NeHX_3QKXrmAZCuckfFJncwhC1V_FvjkzleCSNoD2nmN7eCajOhp_8X"/>
+</div>
+</div>
+<h3 class="text-2xl font-extrabold text-primary mb-1">Julian Vane</h3>
+<p class="text-stone-500 text-sm font-medium mb-4">j.vane@curatedtactile.com</p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-xs font-bold text-on-surface">Admin</span>
+<span class="px-3 py-1 bg-primary/10 rounded-full text-xs font-bold text-primary">Internal Staff</span>
+</div>
+</div>
+<!-- Bento Info Cards -->
+<div class="grid grid-cols-1 gap-4 mb-10">
+<!-- Basic Info -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+<span class="text-xs font-bold text-stone-400 tracking-wider">JOIN DATE</span>
+</div>
+<p class="text-on-surface font-semibold">October 12th, 2023</p>
+<p class="text-xs text-stone-400 mt-1">Active for 154 days</p>
+</div>
+<!-- Order History Summary -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/10">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">receipt_long</span>
+<span class="text-xs font-bold text-stone-400 tracking-wider">ORDER HISTORY</span>
+</div>
+<button class="text-[10px] font-bold text-primary hover:underline">VIEW ALL</button>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-stone-600 font-medium">#ORD-8821</span>
+<span class="font-bold">$425.00</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-stone-600 font-medium">#ORD-7540</span>
+<span class="font-bold">$120.00</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-stone-600 font-medium">#ORD-6219</span>
+<span class="font-bold">$2,100.00</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-xl">history</span>
+<span class="text-xs font-bold text-stone-400 tracking-wider">RECENT ACTIVITY</span>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div>
+<p class="text-xs font-bold">Updated Product "The Silk Vase"</p>
+<p class="text-[10px] text-stone-400">2 hours ago</p>
+</div>
+</li>
+<li class="flex gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div>
+<p class="text-xs font-bold">Approved 4 Customer Reviews</p>
+<p class="text-[10px] text-stone-400">Yesterday at 4:12 PM</p>
+</div>
+</li>
+<li class="flex gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div>
+<p class="text-xs font-bold">Generated Q1 Analytics Report</p>
+<p class="text-[10px] text-stone-400">March 14, 2024</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-3 pt-6">
+<button class="w-full bg-primary text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/10 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">edit</span>
+                        Edit Profile
+                    </button>
+<button class="w-full bg-transparent text-[#D85A30] py-4 rounded-xl font-bold border-2 border-[#D85A30]/20 hover:bg-[#D85A30]/5 transition-colors">
+                        Deactivate Account
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

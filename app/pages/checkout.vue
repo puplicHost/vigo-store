@@ -1,214 +1,267 @@
 <template>
-  <div class="checkout-page">
-    <div class="container">
-      <h1>Checkout</h1>
-      
-      <div v-if="cartStore.items.length === 0" class="empty-cart">
-        <p>Your cart is empty</p>
-        <NuxtLink to="/products" class="btn-continue">Continue Shopping</NuxtLink>
-      </div>
-      
-      <div v-else class="checkout-layout">
-        <form @submit.prevent="handleCheckout" class="checkout-form">
-          <h2>Shipping Information</h2>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input id="address" v-model="form.address" type="text" required />
+  <div class="min-h-screen bg-background">
+    <main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <!-- Progress Bar -->
+      <div class="mb-16">
+        <div class="flex items-center justify-between max-w-2xl mx-auto relative">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container-highest -translate-y-1/2 z-0"></div>
+          <div class="absolute top-1/2 left-0 w-1/2 h-0.5 bg-primary -translate-y-1/2 z-0"></div>
+          
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+            </div>
+            <span class="text-xs font-headline font-bold uppercase tracking-widest text-primary">Cart</span>
           </div>
-          <div class="form-group">
-            <label for="city">City</label>
-            <input id="city" v-model="form.city" type="text" required />
+          
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold ring-4 ring-primary-fixed">
+              2
+            </div>
+            <span class="text-xs font-headline font-bold uppercase tracking-widest text-primary">Info</span>
           </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input id="phone" v-model="form.phone" type="tel" required />
+          
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-surface-container-lowest text-outline border border-outline-variant flex items-center justify-center font-bold">
+              3
+            </div>
+            <span class="text-xs font-headline font-bold uppercase tracking-widest text-outline">Payment</span>
           </div>
-          <button type="submit" :disabled="loading" class="btn-submit">
-            {{ loading ? 'Processing...' : `Pay $${cartStore.totalPrice.toFixed(2)}` }}
-          </button>
-          <p v-if="error" class="error">{{ error }}</p>
-        </form>
-        
-        <div class="order-summary">
-          <h2>Order Summary</h2>
-          <div v-for="item in cartStore.items" :key="item.id" class="summary-item">
-            <span>{{ item.name }} × {{ item.quantity }}</span>
-            <span>${{ (item.price * item.quantity).toFixed(2) }}</span>
-          </div>
-          <div class="summary-total">
-            <span>Total</span>
-            <span>${{ cartStore.totalPrice.toFixed(2) }}</span>
+          
+          <div class="relative z-10 flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-surface-container-lowest text-outline border border-outline-variant flex items-center justify-center font-bold">
+              4
+            </div>
+            <span class="text-xs font-headline font-bold uppercase tracking-widest text-outline">Confirm</span>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Left Column: Checkout Forms -->
+        <div class="lg:col-span-7 space-y-12">
+          <!-- Contact Section -->
+          <section>
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-2xl font-headline font-bold text-primary">Contact Information</h2>
+              <span v-if="!user" class="text-sm text-stone-500">
+                Already have an account? 
+                <NuxtLink to="/auth/login" class="text-primary font-medium underline">Log in</NuxtLink>
+              </span>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-xl space-y-4">
+              <div class="space-y-1">
+                <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Email Address</label>
+                <input 
+                  v-model="form.email"
+                  type="email" 
+                  class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container transition-all"
+                  placeholder="your@email.com"
+                />
+              </div>
+              <div class="flex items-center gap-3">
+                <input v-model="form.newsletter" type="checkbox" class="rounded text-primary focus:ring-primary border-outline-variant" />
+                <label class="text-sm text-on-surface-variant">Keep me updated on new arrivals and editorial stories.</label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Shipping Address -->
+          <section>
+            <h2 class="text-2xl font-headline font-bold text-primary mb-6">Shipping Address</h2>
+            <div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">First Name</label>
+                  <input v-model="form.firstName" type="text" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Last Name</label>
+                  <input v-model="form.lastName" type="text" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+                </div>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Address</label>
+                <input v-model="form.address" type="text" placeholder="House number and street name" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+              </div>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">City</label>
+                  <input v-model="form.city" type="text" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">State</label>
+                  <select v-model="form.state" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container">
+                    <option value="">Select</option>
+                    <option>New York</option>
+                    <option>California</option>
+                    <option>Texas</option>
+                  </select>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Zip Code</label>
+                  <input v-model="form.zipCode" type="text" class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Payment Method -->
+          <section>
+            <h2 class="text-2xl font-headline font-bold text-primary mb-6">Payment Method</h2>
+            <div class="bg-surface-container-low p-8 rounded-xl border-2 border-primary-fixed-dim">
+              <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-primary">credit_card</span>
+                  <span class="font-medium">Cash on Delivery</span>
+                </div>
+              </div>
+              <p class="text-sm text-on-surface-variant">
+                Pay when your order arrives. Our delivery partner will collect the payment at your door.
+              </p>
+            </div>
+          </section>
+
+          <!-- Actions -->
+          <div class="flex items-center justify-between pt-8">
+            <NuxtLink to="/cart" class="flex items-center gap-2 text-primary font-medium group">
+              <span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
+              Return to Cart
+            </NuxtLink>
+            <button 
+              @click="placeOrder"
+              :disabled="submitting"
+              class="bg-primary text-on-primary px-12 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl hover:opacity-90 transition-all active:scale-95 disabled:opacity-50"
+            >
+              {{ submitting ? 'Processing...' : 'Complete Purchase' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="lg:col-span-5">
+          <div class="bg-surface-container rounded-2xl p-8 sticky top-32 shadow-sm border border-outline-variant/10">
+            <h3 class="text-xl font-headline font-bold text-primary mb-8">Order Summary</h3>
+            
+            <!-- Items -->
+            <div class="space-y-6 mb-8">
+              <div v-for="item in cartItems" :key="item.product.id" class="flex gap-4">
+                <div class="relative w-20 h-24 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+                  <img :src="item.product.images?.[0] || '/placeholder-product.jpg'" class="w-full h-full object-cover" />
+                  <span class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">{{ item.quantity }}</span>
+                </div>
+                <div class="flex-grow py-1">
+                  <p class="font-bold text-on-surface">{{ item.product.name }}</p>
+                  <p class="text-sm text-on-surface-variant">{{ item.product.category?.name }}</p>
+                  <p class="text-sm font-bold text-primary mt-1">${{ (item.product.price * item.quantity).toFixed(2) }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Totals -->
+            <div class="space-y-4 pt-8 border-t border-outline-variant/20">
+              <div class="flex justify-between text-sm">
+                <span class="text-on-surface-variant">Subtotal</span>
+                <span class="font-medium text-on-surface">${{ cartTotal.toFixed(2) }}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-on-surface-variant">Shipping</span>
+                <span class="font-medium text-on-surface">{{ shipping > 0 ? '$' + shipping.toFixed(2) : 'Free' }}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-on-surface-variant">Taxes</span>
+                <span class="font-medium text-on-surface">${{ tax.toFixed(2) }}</span>
+              </div>
+              <div class="flex justify-between items-end pt-4">
+                <div>
+                  <p class="text-xl font-headline font-extrabold text-primary">Total</p>
+                  <p class="text-[10px] text-stone-400 uppercase tracking-widest">USD (Includes duties)</p>
+                </div>
+                <span class="text-3xl font-headline font-extrabold text-primary">${{ total.toFixed(2) }}</span>
+              </div>
+            </div>
+
+            <!-- Secure Badge -->
+            <div class="mt-10 flex items-center justify-center gap-2 py-4 bg-surface-container-low rounded-xl text-stone-500">
+              <span class="material-symbols-outlined text-sm">verified_user</span>
+              <span class="text-xs font-bold uppercase tracking-widest">100% Secure Checkout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
 <script setup>
+const user = useState('user')
 const cartStore = useCartStore()
 const router = useRouter()
 
-const form = reactive({
+const submitting = ref(false)
+
+const form = ref({
+  email: user.value?.email || '',
+  firstName: '',
+  lastName: '',
   address: '',
   city: '',
-  phone: '',
+  state: '',
+  zipCode: '',
+  newsletter: false
 })
 
-const loading = ref(false)
-const error = ref('')
+const cartItems = computed(() => cartStore.items)
+const cartTotal = computed(() => cartStore.total)
 
-onMounted(() => {
-  cartStore.loadFromLocalStorage()
+const shipping = computed(() => {
+  if (cartTotal.value >= 500) return 0
+  return 15
 })
 
-async function handleCheckout() {
-  if (!localStorage.getItem('token')) {
-    navigateTo('/auth/login')
+const tax = computed(() => cartTotal.value * 0.08)
+const total = computed(() => cartTotal.value + shipping.value + tax.value)
+
+async function placeOrder() {
+  if (cartItems.value.length === 0) {
+    alert('Your cart is empty')
     return
   }
-  
-  loading.value = true
-  error.value = ''
+
+  submitting.value = true
   
   try {
-    const items = cartStore.items.map(item => ({
-      productId: item.id,
-      quantity: item.quantity,
-      price: item.price,
-    }))
-    
-    await $fetch('/api/orders', {
+    const orderData = {
+      items: cartItems.value.map(item => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+        price: item.product.price
+      })),
+      address: `${form.value.address}, ${form.value.city}, ${form.value.state} ${form.value.zipCode}`,
+      city: form.value.city,
+      phone: 'N/A'
+    }
+
+    const response = await $fetch('/api/orders', {
       method: 'POST',
-      body: {
-        items,
-        address: form.address,
-        city: form.city,
-        phone: form.phone,
-      },
+      body: orderData,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
-    
+
+    // Clear cart and redirect to success
     cartStore.clearCart()
-    alert('Order placed successfully!')
-    navigateTo('/orders')
+    router.push(`/order-success?orderId=${response.id}`)
   } catch (err) {
-    error.value = err?.data?.statusMessage || 'Checkout failed'
+    alert('Failed to place order. Please try again.')
+    console.error(err)
   } finally {
-    loading.value = false
+    submitting.value = false
   }
 }
 
 useHead({
-  title: 'Checkout - Figo Store',
+  title: 'Checkout | The Curated Tactile'
 })
 </script>
-
-<style scoped>
-.checkout-page {
-  padding: 2rem 0;
-}
-
-h1 {
-  margin-bottom: 2rem;
-}
-
-.empty-cart {
-  text-align: center;
-  padding: 4rem;
-}
-
-.btn-continue {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: #e5e7eb;
-  color: #374151;
-  border-radius: 0.375rem;
-}
-
-.checkout-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.checkout-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-}
-
-.checkout-form h2 {
-  margin-bottom: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-}
-
-.btn-submit {
-  width: 100%;
-  padding: 0.875rem;
-  background: #2563eb;
-  color: white;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  margin-top: 1rem;
-}
-
-.btn-submit:disabled {
-  background: #9ca3af;
-}
-
-.error {
-  color: #ef4444;
-  margin-top: 1rem;
-}
-
-.order-summary {
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  height: fit-content;
-}
-
-.order-summary h2 {
-  margin-bottom: 1.5rem;
-}
-
-.summary-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.summary-total {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1rem;
-  font-weight: bold;
-  font-size: 1.125rem;
-}
-
-@media (max-width: 768px) {
-  .checkout-layout {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e2dc",
+                        "on-surface-variant": "#3f4944",
+                        "on-surface": "#1b1c18",
+                        "primary": "#005440",
+                        "secondary-container": "#fcaa33",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#1b1c18",
+                        "surface-dim": "#dcdad3",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-tertiary-container": "#ffd3c6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "secondary-fixed-dim": "#ffb95d",
+                        "surface-bright": "#fbf9f2",
+                        "on-primary-container": "#9aedcf",
+                        "background": "#fbf9f2",
+                        "secondary-fixed": "#ffddb7",
+                        "surface-tint": "#086b53",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f3f1ea",
+                        "tertiary-fixed-dim": "#ffb59e",
+                        "primary-fixed": "#a0f3d4",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f2",
+                        "surface-container": "#f0eee7",
+                        "surface-container-low": "#f6f4ec",
+                        "on-tertiary-fixed": "#3a0b00",
+                        "on-tertiary-fixed-variant": "#852400",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bec9c3",
+                        "inverse-primary": "#84d6b9",
+                        "inverse-surface": "#30312c",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "tertiary": "#892600",
+                        "primary-fixed-dim": "#84d6b9",
+                        "on-secondary-container": "#6b4200",
+                        "primary-container": "#0f6e56",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00513e",
+                        "secondary": "#855400",
+                        "on-primary-fixed": "#002117",
+                        "on-secondary": "#ffffff",
+                        "outline": "#6f7a74",
+                        "tertiary-container": "#ac3b12",
+                        "surface-container-high": "#eae8e1",
+                        "surface-variant": "#e4e2dc",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F1EFE8; }
+        h1, h2, h3, .headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-screen w-[240px] bg-[#f6f4ec] dark:bg-stone-900 border-r border-stone-200/50 dark:border-stone-800/50 flex flex-col p-4 gap-2 z-50">
+<div class="mb-8 px-2">
+<h1 class="text-lg font-black text-[#005440] uppercase tracking-widest">Admin Panel</h1>
+<p class="text-xs text-stone-500 font-medium">Manage Store</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="text-sm">Products</span>
+</a>
+<!-- Active Tab: Orders -->
+<a class="flex items-center gap-3 px-3 py-2.5 bg-[#005440] text-white rounded-lg shadow-md font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="text-sm">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-stone-200/50">
+<a class="flex items-center gap-3 px-3 py-2.5 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-[240px] min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="bg-[#fbf9f2]/80 dark:bg-stone-900/80 backdrop-blur-xl sticky top-0 w-full z-40 shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-8 h-20 max-w-full mx-auto">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold tracking-tighter text-[#005440] dark:text-[#0f6e56] font-['Plus_Jakarta_Sans']">Orders Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-sm font-['Plus_Jakarta_Sans'] tracking-tight transition-all duration-300 hover:opacity-80 text-[#005440] border-b-2 border-[#005440] pb-1" href="#">All Orders</a>
+<a class="text-sm font-['Plus_Jakarta_Sans'] tracking-tight transition-all duration-300 hover:opacity-80 text-stone-600 dark:text-stone-400 hover:text-[#005440]" href="#">Reports</a>
+<a class="text-sm font-['Plus_Jakarta_Sans'] tracking-tight transition-all duration-300 hover:opacity-80 text-stone-600 dark:text-stone-400 hover:text-[#005440]" href="#">Automation</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#005440] dark:text-[#0f6e56] hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30">
+<img class="h-full w-full object-cover" data-alt="professional headshot of an admin manager in a clean studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm4Vd_qSm8yASF3f0J0hshHX9htYGdsY9793_LiFTMEryjoR9PzTh4xoCiuzhlkRPK7CbHPMlUD_ZSY6jXnKfsdw-pYImYnKByZyk0zLEPv6C8luaIIEGUvc6KYkzM06MqaS1fJjK1MFPPuZSuDGfxcr-bDIciC3DwFswvG6adUdghEM6XOgQHPn4WdsGh4cuoVTxw_NCK375nKGRFa61oddTUmdPBQXN3TG9CiCT0T6xtEypKYSYwpppWpZwh1LAnzMxMviMM-HVJ"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-[1400px]">
+<!-- Filter Toolbar -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+<!-- Filter Tabs -->
+<div class="flex bg-surface-container-low p-1 rounded-xl">
+<button class="px-6 py-2.5 text-sm font-semibold rounded-lg bg-primary text-white shadow-sm transition-all">All</button>
+<button class="px-6 py-2.5 text-sm font-medium text-stone-600 hover:text-primary transition-all">Pending</button>
+<button class="px-6 py-2.5 text-sm font-medium text-stone-600 hover:text-primary transition-all">Shipped</button>
+<button class="px-6 py-2.5 text-sm font-medium text-stone-600 hover:text-primary transition-all">Delivered</button>
+</div>
+<!-- Search and Date -->
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative flex-1 md:w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-stone-400" placeholder="Search order ID, customer..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest text-stone-700 rounded-xl text-sm font-medium hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span>This Month</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-md hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export</span>
+</button>
+</div>
+</div>
+<!-- Table Header (Hidden on Mobile) -->
+<div class="hidden lg:grid grid-cols-6 gap-4 px-6 mb-4 text-xs font-bold uppercase tracking-widest text-stone-400">
+<div class="col-span-1">Order ID</div>
+<div class="col-span-1">Customer</div>
+<div class="col-span-1">Date</div>
+<div class="col-span-1">Total</div>
+<div class="col-span-1 text-center">Status</div>
+<div class="col-span-1 text-right">Actions</div>
+</div>
+<!-- Orders List -->
+<div class="flex flex-col gap-3">
+<!-- Order Row 1 -->
+<div class="grid lg:grid-cols-6 gap-4 items-center bg-surface-container-lowest p-5 lg:p-6 rounded-xl hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-outline-variant/10">
+<div class="col-span-1">
+<span class="text-sm font-bold text-primary">#ORD-2024-9421</span>
+</div>
+<div class="col-span-1 flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/5 flex items-center justify-center text-primary font-bold text-xs">EL</div>
+<span class="text-sm font-medium text-stone-800">Eleanor Lawrence</span>
+</div>
+<div class="col-span-1 text-sm text-stone-500">Oct 12, 2024</div>
+<div class="col-span-1 text-sm font-bold text-stone-800">$1,240.00</div>
+<div class="col-span-1 flex justify-center">
+<span class="px-3 py-1 bg-amber-50 text-amber-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-amber-100">Pending</span>
+</div>
+<div class="col-span-1 flex justify-end gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Order Row 2 -->
+<div class="grid lg:grid-cols-6 gap-4 items-center bg-surface-container-lowest p-5 lg:p-6 rounded-xl hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-outline-variant/10">
+<div class="col-span-1">
+<span class="text-sm font-bold text-primary">#ORD-2024-9388</span>
+</div>
+<div class="col-span-1 flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/5 flex items-center justify-center text-primary font-bold text-xs">MJ</div>
+<span class="text-sm font-medium text-stone-800">Marcus Jensen</span>
+</div>
+<div class="col-span-1 text-sm text-stone-500">Oct 11, 2024</div>
+<div class="col-span-1 text-sm font-bold text-stone-800">$842.50</div>
+<div class="col-span-1 flex justify-center">
+<span class="px-3 py-1 bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-blue-100">Shipped</span>
+</div>
+<div class="col-span-1 flex justify-end gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Order Row 3 -->
+<div class="grid lg:grid-cols-6 gap-4 items-center bg-surface-container-lowest p-5 lg:p-6 rounded-xl hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-outline-variant/10">
+<div class="col-span-1">
+<span class="text-sm font-bold text-primary">#ORD-2024-9350</span>
+</div>
+<div class="col-span-1 flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/5 flex items-center justify-center text-primary font-bold text-xs">SH</div>
+<span class="text-sm font-medium text-stone-800">Sarah Hughes</span>
+</div>
+<div class="col-span-1 text-sm text-stone-500">Oct 10, 2024</div>
+<div class="col-span-1 text-sm font-bold text-stone-800">$2,110.00</div>
+<div class="col-span-1 flex justify-center">
+<span class="px-3 py-1 bg-green-50 text-green-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-green-100">Delivered</span>
+</div>
+<div class="col-span-1 flex justify-end gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Order Row 4 -->
+<div class="grid lg:grid-cols-6 gap-4 items-center bg-surface-container-lowest p-5 lg:p-6 rounded-xl hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-outline-variant/10">
+<div class="col-span-1">
+<span class="text-sm font-bold text-primary">#ORD-2024-9311</span>
+</div>
+<div class="col-span-1 flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/5 flex items-center justify-center text-primary font-bold text-xs">DB</div>
+<span class="text-sm font-medium text-stone-800">David Brooks</span>
+</div>
+<div class="col-span-1 text-sm text-stone-500">Oct 09, 2024</div>
+<div class="col-span-1 text-sm font-bold text-stone-800">$156.20</div>
+<div class="col-span-1 flex justify-center">
+<span class="px-3 py-1 bg-stone-100 text-stone-500 text-[11px] font-bold uppercase tracking-wider rounded-full border border-stone-200">Cancelled</span>
+</div>
+<div class="col-span-1 flex justify-end gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Order Row 5 -->
+<div class="grid lg:grid-cols-6 gap-4 items-center bg-surface-container-lowest p-5 lg:p-6 rounded-xl hover:shadow-lg hover:shadow-stone-200/50 transition-all duration-300 border border-outline-variant/10">
+<div class="col-span-1">
+<span class="text-sm font-bold text-primary">#ORD-2024-9290</span>
+</div>
+<div class="col-span-1 flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/5 flex items-center justify-center text-primary font-bold text-xs">AC</div>
+<span class="text-sm font-medium text-stone-800">Alice Cooper</span>
+</div>
+<div class="col-span-1 text-sm text-stone-500">Oct 08, 2024</div>
+<div class="col-span-1 text-sm font-bold text-stone-800">$4,500.00</div>
+<div class="col-span-1 flex justify-center">
+<span class="px-3 py-1 bg-green-50 text-green-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-green-100">Delivered</span>
+</div>
+<div class="col-span-1 flex justify-end gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors text-stone-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-8 flex justify-between items-center px-2">
+<span class="text-xs text-stone-500 font-medium">Showing 1 to 5 of 2,492 orders</span>
+<div class="flex gap-1">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-stone-400 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="h-8 w-8 text-xs font-bold bg-primary text-white rounded-lg">1</button>
+<button class="h-8 w-8 text-xs font-bold text-stone-600 hover:bg-surface-container-high rounded-lg transition-all">2</button>
+<button class="h-8 w-8 text-xs font-bold text-stone-600 hover:bg-surface-container-high rounded-lg transition-all">3</button>
+<span class="h-8 w-8 flex items-center justify-center text-stone-400">...</span>
+<button class="h-8 w-8 text-xs font-bold text-stone-600 hover:bg-surface-container-high rounded-lg transition-all">24</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-stone-400 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto w-full py-8 px-8 bg-stone-100 dark:bg-stone-950">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+<div>
+<h3 class="text-lg font-bold text-[#005440] font-['Plus_Jakarta_Sans']">The Curated Tactile</h3>
+<p class="text-stone-500 text-xs mt-2">© 2024 The Curated Tactile. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap gap-4 text-sm font-['Plus_Jakarta_Sans'] text-stone-500">
+<a class="hover:text-[#0f6e56] transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-[#0f6e56] transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-[#0f6e56] transition-colors" href="#">Sustainability</a>
+</div>
+<div class="md:text-right">
+<span class="text-xs text-stone-400 font-medium">System Status: <span class="text-green-600 font-bold">Operational</span></span>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,154 +1,182 @@
 <template>
-  <div>
-    <NuxtLayout name="dashboard">
-      <div class="container">
-        <h1>Add Product</h1>
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-8">
+      <NuxtLink to="/dashboard/products" class="p-2 text-stone-400 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </NuxtLink>
+      <div>
+        <h2 class="text-3xl font-headline font-extrabold text-primary tracking-tight">Add Product</h2>
+        <p class="text-stone-500 mt-1">Create a new product in your catalog</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form @submit.prevent="saveProduct" class="bg-surface-container-lowest rounded-xl p-8 editorial-shadow-sm space-y-8">
+      <!-- Basic Info -->
+      <section class="space-y-6">
+        <h3 class="text-lg font-headline font-bold text-primary">Basic Information</h3>
         
-        <form @submit.prevent="handleSubmit" class="product-form">
-          <div class="form-group">
-            <label for="name">Product Name</label>
-            <input id="name" v-model="form.name" type="text" required />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Product Name</label>
+            <input 
+              v-model="form.name"
+              type="text"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+              placeholder="e.g. Artisan Vase"
+            />
           </div>
           
-          <div class="form-group">
-            <label for="slug">Slug</label>
-            <input id="slug" v-model="form.slug" type="text" required />
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Slug</label>
+            <input 
+              v-model="form.slug"
+              type="text"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+              placeholder="e.g. artisan-vase"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-on-surface-variant">Description</label>
+          <textarea 
+            v-model="form.description"
+            rows="4"
+            class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary resize-none"
+            placeholder="Describe your product..."
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Price ($)</label>
+            <input 
+              v-model.number="form.price"
+              type="number"
+              required
+              min="0"
+              step="0.01"
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+              placeholder="0.00"
+            />
           </div>
           
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" v-model="form.description" rows="4"></textarea>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Stock</label>
+            <input 
+              v-model.number="form.stock"
+              type="number"
+              required
+              min="0"
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+              placeholder="0"
+            />
           </div>
           
-          <div class="form-row">
-            <div class="form-group">
-              <label for="price">Price ($)</label>
-              <input id="price" v-model.number="form.price" type="number" step="0.01" min="0" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="stock">Stock</label>
-              <input id="stock" v-model.number="form.stock" type="number" min="0" required />
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" v-model.number="form.categoryId" required>
-              <option value="">Select a category</option>
-              <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                {{ cat.name }}
-              </option>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-on-surface-variant">Category</label>
+            <select 
+              v-model="form.categoryId"
+              required
+              class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            >
+              <option value="">Select Category</option>
+              <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
             </select>
           </div>
-          
-          <button type="submit" :disabled="loading" class="btn-submit">
-            {{ loading ? 'Creating...' : 'Create Product' }}
-          </button>
-          <p v-if="error" class="error">{{ error }}</p>
-        </form>
+        </div>
+      </section>
+
+      <!-- Images -->
+      <section class="space-y-6">
+        <h3 class="text-lg font-headline font-bold text-primary">Images</h3>
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-on-surface-variant">Image URL</label>
+          <input 
+            v-model="form.images"
+            type="text"
+            class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary"
+            placeholder="https://example.com/image.jpg"
+          />
+          <p class="text-xs text-stone-500">Enter a URL for the product image</p>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-end gap-4 pt-6 border-t border-stone-100">
+        <NuxtLink 
+          to="/dashboard/products"
+          class="px-6 py-3 text-primary font-semibold hover:bg-primary/5 rounded-lg transition-colors"
+        >
+          Cancel
+        </NuxtLink>
+        <button 
+          type="submit"
+          :disabled="saving"
+          class="px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-all disabled:opacity-50 flex items-center gap-2"
+        >
+          <span v-if="saving" class="material-symbols-outlined animate-spin">refresh</span>
+          <span>{{ saving ? 'Saving...' : 'Save Product' }}</span>
+        </button>
       </div>
-    </NuxtLayout>
+    </form>
   </div>
 </template>
 
 <script setup>
-const form = reactive({
+definePageMeta({
+  layout: 'dashboard'
+})
+
+const router = useRouter()
+
+const form = ref({
   name: '',
   slug: '',
   description: '',
-  price: 0,
-  stock: 0,
+  price: '',
+  stock: '',
   categoryId: '',
+  images: ''
 })
 
-const loading = ref(false)
-const error = ref('')
+const saving = ref(false)
 
 const { data: categories } = await useFetch('/api/categories')
 
-async function handleSubmit() {
-  loading.value = true
-  error.value = ''
+async function saveProduct() {
+  saving.value = true
   
   try {
+    const payload = {
+      ...form.value,
+      price: parseFloat(form.value.price),
+      stock: parseInt(form.value.stock),
+      categoryId: parseInt(form.value.categoryId),
+      images: form.value.images ? [form.value.images] : []
+    }
+    
     await $fetch('/api/admin/products', {
       method: 'POST',
-      body: form,
+      body: payload,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
-    navigateTo('/dashboard/products')
+    
+    router.push('/dashboard/products')
   } catch (err) {
-    error.value = err?.data?.statusMessage || 'Failed to create product'
+    alert('Failed to create product: ' + err.message)
   } finally {
-    loading.value = false
+    saving.value = false
   }
 }
 
 useHead({
-  title: 'Add Product - Figo Admin',
-})
-
-definePageMeta({
-  layout: 'dashboard',
+  title: 'Add Product | Admin Panel'
 })
 </script>
-
-<style scoped>
-.product-form {
-  max-width: 600px;
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.btn-submit {
-  padding: 0.75rem 1.5rem;
-  background: #16a34a;
-  color: white;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  margin-top: 1rem;
-}
-
-.btn-submit:disabled {
-  background: #9ca3af;
-}
-
-.error {
-  color: #ef4444;
-  margin-top: 1rem;
-}
-</style>

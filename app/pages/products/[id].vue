@@ -1,159 +1,247 @@
 <template>
-  <div class="product-detail">
-    <div v-if="pending" class="loading">Loading...</div>
-    <div v-else-if="error || !product" class="error">Product not found</div>
-    <div v-else class="container">
-      <div class="product-layout">
-        <div class="product-image">
-          <img :src="product.images || '/placeholder-product.jpg'" :alt="product.name" />
-        </div>
-        <div class="product-info">
-          <h1>{{ product.name }}</h1>
-          <p class="category">{{ product.category?.name }}</p>
-          <p class="price">${{ product.price.toFixed(2) }}</p>
-          <p class="description">{{ product.description || 'No description available' }}</p>
-          <p class="stock">{{ product.stock > 0 ? `${product.stock} in stock` : 'Out of stock' }}</p>
-          
-          <div v-if="product.stock > 0" class="actions">
-            <div class="quantity">
-              <button @click="quantity > 1 && quantity--">-</button>
-              <span>{{ quantity }}</span>
-              <button @click="quantity < product.stock && quantity++">+</button>
+  <div class="min-h-screen bg-background">
+    <main class="pt-32 pb-24 max-w-screen-2xl mx-auto px-8">
+      <!-- Product Main Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Left Side: Image Gallery -->
+        <div class="lg:col-span-7 flex flex-col md:flex-row gap-6">
+          <!-- Thumbnail Strip -->
+          <div class="order-2 md:order-1 flex md:flex-col gap-4 overflow-x-auto no-scrollbar md:w-24">
+            <div 
+              v-for="(image, idx) in productImages" 
+              :key="idx"
+              @click="selectedImage = idx"
+              class="flex-shrink-0 w-20 h-24 md:w-full md:h-28 rounded-lg overflow-hidden bg-surface-container-high cursor-pointer transition-all hover:ring-1 ring-primary ring-offset-2"
+              :class="{ 'ring-1': selectedImage === idx, 'opacity-60': selectedImage !== idx }"
+            >
+              <img :src="image" :alt="product?.name" class="w-full h-full object-cover" />
             </div>
-            <button @click="addToCart" class="btn-add">Add to Cart</button>
+          </div>
+          <!-- Main Large Image -->
+          <div class="order-1 md:order-2 flex-grow aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low shadow-sm">
+            <img 
+              :src="productImages[selectedImage] || '/placeholder-product.jpg'" 
+              :alt="product?.name"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            />
           </div>
         </div>
+
+        <!-- Right Side: Content -->
+        <div class="lg:col-span-5 space-y-8 sticky top-32">
+          <div v-if="pending" class="space-y-4 animate-pulse">
+            <div class="h-8 bg-surface-container rounded w-3/4"></div>
+            <div class="h-6 bg-surface-container rounded w-1/2"></div>
+            <div class="h-4 bg-surface-container rounded w-full"></div>
+          </div>
+
+          <div v-else-if="error" class="text-center py-8">
+            <span class="material-symbols-outlined text-4xl text-error mb-4">error</span>
+            <p class="text-on-surface-variant">Product not found</p>
+          </div>
+
+          <template v-else-if="product">
+            <div class="space-y-4">
+              <div class="flex justify-between items-start">
+                <span 
+                  class="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider"
+                  :class="product.stock > 0 ? 'bg-secondary-fixed text-on-secondary-fixed' : 'bg-error-container text-on-error-container'"
+                >
+                  {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                </span>
+                <div class="flex items-center gap-1 text-on-surface-variant">
+                  <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                  <span class="text-sm font-medium">4.9</span>
+                  <span class="text-sm text-outline mx-1">•</span>
+                  <span class="text-sm text-outline underline">124 reviews</span>
+                </div>
+              </div>
+              
+              <h1 class="text-4xl md:text-5xl font-headline font-bold text-primary tracking-tight">{{ product.name }}</h1>
+              
+              <div class="flex items-baseline gap-4">
+                <span class="text-3xl font-light text-on-surface">${{ product.price }}</span>
+                <span v-if="product.originalPrice" class="text-xl text-outline line-through">${{ product.originalPrice }}</span>
+              </div>
+              
+              <p class="text-on-surface-variant leading-relaxed text-lg">{{ product.description }}</p>
+            </div>
+
+            <!-- Interactions -->
+            <div class="space-y-6 pt-4">
+              <div class="flex items-center gap-6">
+                <!-- Quantity -->
+                <div class="flex items-center bg-surface-container-low rounded-lg p-1">
+                  <button 
+                    @click="quantity > 1 && quantity--"
+                    :disabled="quantity <= 1"
+                    class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors disabled:opacity-50"
+                  >
+                    <span class="material-symbols-outlined">remove</span>
+                  </button>
+                  <span class="w-12 text-center font-semibold">{{ quantity }}</span>
+                  <button 
+                    @click="quantity++"
+                    class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors"
+                  >
+                    <span class="material-symbols-outlined">add</span>
+                  </button>
+                </div>
+                
+                <!-- Add to Cart -->
+                <button 
+                  @click="addToCart"
+                  :disabled="product.stock === 0"
+                  class="flex-grow bg-primary-container text-white h-12 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all hover:opacity-90 active:scale-[0.98] shadow-md shadow-primary/10 disabled:opacity-50"
+                >
+                  <span class="material-symbols-outlined">shopping_bag</span>
+                  {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+                </button>
+              </div>
+              
+              <button class="w-full flex items-center justify-center gap-2 py-3 text-primary font-semibold rounded-lg hover:bg-primary/5 transition-colors border-2 border-primary/10">
+                <span class="material-symbols-outlined">favorite</span>
+                Save to Wishlist
+              </button>
+            </div>
+
+            <!-- Shipping Accordion -->
+            <div class="pt-8 space-y-4">
+              <details class="group border-t border-outline-variant/30 py-4 cursor-pointer">
+                <summary class="flex justify-between items-center text-primary list-none">
+                  <span class="font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined">local_shipping</span>
+                    Shipping & Delivery
+                  </span>
+                  <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <p class="mt-4 text-sm text-on-surface-variant leading-relaxed">
+                  Complimentary shipping on orders over $500. Standard delivery arrives in 3-5 business days. White-glove delivery available for large scale pieces.
+                </p>
+              </details>
+              
+              <details class="group border-t border-outline-variant/30 py-4 cursor-pointer">
+                <summary class="flex justify-between items-center text-primary list-none">
+                  <span class="font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined">eco</span>
+                    Materials & Sustainability
+                  </span>
+                  <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <p class="mt-4 text-sm text-on-surface-variant leading-relaxed">
+                  All our products are crafted using sustainable materials and eco-friendly processes. We prioritize local artisans and carbon-neutral shipping methods.
+                </p>
+              </details>
+              
+              <details class="group border-t border-b border-outline-variant/30 py-4 cursor-pointer">
+                <summary class="flex justify-between items-center text-primary list-none">
+                  <span class="font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined">history</span>
+                    Returns & Exchanges
+                  </span>
+                  <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <p class="mt-4 text-sm text-on-surface-variant leading-relaxed">
+                  We accept returns within 30 days of delivery. Items must be in original condition with all packaging. Exchanges are subject to availability.
+                </p>
+              </details>
+            </div>
+          </template>
+        </div>
       </div>
-    </div>
+
+      <!-- Related Products Section -->
+      <section v-if="relatedProducts.length > 0" class="mt-32 space-y-12">
+        <div class="flex justify-between items-end">
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary/60">Curated Pairing</span>
+            <h2 class="text-3xl font-headline font-bold text-primary">You Might Also Like</h2>
+          </div>
+          <NuxtLink to="/" class="text-primary font-semibold border-b-2 border-primary/20 pb-1 hover:border-primary transition-all">
+            View Entire Collection
+          </NuxtLink>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <NuxtLink 
+            v-for="item in relatedProducts" 
+            :key="item.id"
+            :to="`/products/${item.id}`"
+            class="group space-y-4"
+          >
+            <div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high relative">
+              <img 
+                :src="item.images?.[0] || '/placeholder-product.jpg'" 
+                :alt="item.name"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur text-primary p-2 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-lg">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+            <div class="space-y-1">
+              <h3 class="font-semibold text-lg text-primary">{{ item.name }}</h3>
+              <p class="text-outline text-sm">{{ item.category?.name }}</p>
+              <p class="font-medium">${{ item.price }}</p>
+            </div>
+          </NuxtLink>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
 <script setup>
 const route = useRoute()
 const cartStore = useCartStore()
+
+const productId = route.params.id
+const selectedImage = ref(0)
 const quantity = ref(1)
 
-const { data: product, pending, error } = await useFetch(`/api/products/${route.params.id}`)
+// Fetch product
+const { data: productData, pending, error } = await useFetch(`/api/products/${productId}`)
+const product = computed(() => productData.value)
+
+// Product images
+const productImages = computed(() => {
+  if (!product.value?.images) return ['/placeholder-product.jpg']
+  return Array.isArray(product.value.images) 
+    ? product.value.images 
+    : [product.value.images]
+})
+
+// Fetch related products
+const { data: allProducts } = await useFetch('/api/products?limit=8')
+const relatedProducts = computed(() => {
+  if (!allProducts.value?.products || !product.value) return []
+  return allProducts.value.products
+    .filter(p => p.id !== product.value.id && p.categoryId === product.value.categoryId)
+    .slice(0, 4)
+})
 
 function addToCart() {
-  if (!product.value) return
-  
-  cartStore.addItem({
-    id: product.value.id,
-    name: product.value.name,
-    price: product.value.price,
-    quantity: quantity.value,
-    image: product.value.images,
-  })
-  alert('Added to cart!')
+  if (product.value && product.value.stock > 0) {
+    cartStore.addItem(product.value, quantity.value)
+    // Show success message or open cart drawer
+    alert('Added to cart!')
+  }
 }
 
 useHead(() => ({
-  title: product.value ? `${product.value.name} - Figo Store` : 'Product - Figo Store',
+  title: product.value ? `${product.value.name} | The Curated Tactile` : 'Product | The Curated Tactile',
+  meta: [
+    { name: 'description', content: product.value?.description || 'Product details' }
+  ]
 }))
 </script>
 
 <style scoped>
-.product-detail {
-  padding: 2rem 0;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-.loading,
-.error {
-  text-align: center;
-  padding: 3rem;
-}
-
-.product-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-.product-image {
-  background: #f3f4f6;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-.product-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.product-info h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.category {
-  color: #6b7280;
-  margin-bottom: 1rem;
-}
-
-.price {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2563eb;
-  margin-bottom: 1rem;
-}
-
-.description {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.stock {
-  color: #16a34a;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.quantity {
-  display: flex;
-  align-items: center;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  overflow: hidden;
-}
-
-.quantity button {
-  padding: 0.5rem 1rem;
-  background: #f3f4f6;
-  font-size: 1rem;
-}
-
-.quantity span {
-  padding: 0.5rem 1rem;
-  min-width: 3rem;
-  text-align: center;
-}
-
-.btn-add {
-  padding: 0.75rem 2rem;
-  background: #2563eb;
-  color: white;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.btn-add:hover {
-  background: #1d4ed8;
-}
-
-@media (max-width: 768px) {
-  .product-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
